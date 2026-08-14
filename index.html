@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DámTo! – Krátke a dlhé samohlásky</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#eef7ff,#fff5df);
+  color:#17365d;
+  min-height:100vh;
+}
+
+.wrap{
+  max-width:760px;
+  margin:auto;
+  padding:7px;
+}
+
+.logo{
+  text-align:center;
+  font-size:36px;
+  font-weight:900;
+}
+
+.logo span{color:#ff9f1c}
+
+.slogan{
+  text-align:center;
+  color:#718096;
+  font-weight:700;
+  font-size:13px;
+  margin:3px 0 8px;
+}
+
+.card{
+  background:#fff;
+  border-radius:24px;
+  padding:14px;
+  box-shadow:0 12px 35px rgba(23,54,93,.12);
+}
+
+.center{text-align:center}
+.hidden{display:none!important}
+
+.levels{
+  display:grid;
+  gap:7px;
+  margin:12px 0;
+}
+
+button{
+  border:0;
+  border-radius:15px;
+  padding:10px;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  font-family:Arial,sans-serif;
+}
+
+.level{
+  background:#eef6ff;
+  color:#17365d;
+  border:2px solid transparent;
+}
+
+.level.active{
+  background:#fff7e8;
+  border-color:#ff9f1c;
+}
+
+.primary{
+  width:100%;
+  background:#2f80ed;
+  color:#fff;
+}
+
+.secondary{
+  background:#eef6ff;
+  color:#17365d;
+}
+
+.allExercises{
+  background:#fff4df;
+  color:#805400;
+}
+
+.mistakes{
+  width:100%;
+  margin-top:7px;
+  background:#fff4df;
+  color:#805400;
+}
+
+.top,.stats{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:6px;
+}
+
+.navButtons{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+}
+
+.badge{
+  background:#fff4df;
+  padding:7px 10px;
+  border-radius:30px;
+  font-weight:800;
+}
+
+.progress{
+  height:8px;
+  background:#e9eff5;
+  border-radius:20px;
+  overflow:hidden;
+  margin:6px 0;
+}
+
+.bar{
+  height:100%;
+  background:#ff9f1c;
+  width:0;
+}
+
+.stats{
+  font-size:13px;
+  color:#65758b;
+  font-weight:700;
+}
+
+.instruction{
+  text-align:center;
+  color:#65758b;
+  font-weight:800;
+  font-size:16px;
+  margin-top:7px;
+}
+
+.question{
+  text-align:center;
+  font-size:38px;
+  font-weight:900;
+  margin:8px 0;
+  line-height:1.2;
+}
+
+.answers{
+  display:grid;
+  gap:6px;
+}
+
+.answer{
+  background:#fff;
+  border:2px solid #dce7f2;
+  color:#17365d;
+  padding:9px;
+  line-height:1.3;
+}
+
+.answer:hover{
+  border-color:#2f80ed;
+  background:#f5f9ff;
+}
+
+.answer.keyboardSelected{
+  border-color:#2f80ed;
+  background:#eaf3ff;
+  box-shadow:0 0 0 2px rgba(47,128,237,.12);
+}
+
+.answer:disabled{
+  cursor:default;
+}
+
+.feedback{
+  margin-top:6px;
+  padding:7px 9px;
+  border-radius:12px;
+  font-size:14px;
+}
+
+.good{
+  background:#e9f8ef;
+  color:#176b46;
+}
+
+.bad{
+  background:#fff0f2;
+  color:#9f3047;
+}
+
+#nextButton{
+  margin-top:6px;
+  padding:8px;
+}
+
+.score{
+  font-size:48px;
+  font-weight:900;
+}
+
+.footer{
+  text-align:center;
+  color:#8795a7;
+  font-size:12px;
+  margin-top:5px;
+}
+
+@media(max-height:700px){
+  .logo{font-size:29px}
+  .slogan{font-size:11px;margin:1px 0 4px}
+  .card{padding:9px}
+  .instruction{font-size:14px;margin-top:3px}
+  .question{font-size:30px;margin:4px 0}
+  .answer{padding:7px;font-size:13px}
+  .feedback{font-size:12px;padding:5px}
+  .top button,.badge{font-size:12px;padding:6px}
+  .progress{height:6px}
+}
+
+@media(max-width:520px){
+  .wrap{padding:6px}
+  .logo{font-size:32px}
+  .question{font-size:31px}
+  .navButtons button{font-size:11px;padding:6px}
+  .badge{font-size:11px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="logo">
+Dám<span>To!</span>
+</div>
+
+<div class="slogan">
+Každý deň o level vyššie.
+</div>
+
+<section id="home" class="card center">
+
+<div style="font-size:42px">🔊</div>
+
+<h1 style="margin:5px 0">
+Krátke a dlhé samohlásky
+</h1>
+
+<p style="margin:5px 0">
+Precvič si krátke a dlhé samohlásky.
+</p>
+
+<div class="levels">
+
+<button class="level active" data-level="1">
+⭐ Skúšam<br>
+<small>Krátka alebo dlhá?</small>
+</button>
+
+<button class="level" data-level="2">
+⭐⭐ Už mi to ide<br>
+<small>Nájdi krátku alebo dlhú samohlásku</small>
+</button>
+
+<button class="level" data-level="3">
+⭐⭐⭐ DámTo!<br>
+<small>Pracuj so samohláskami v slovách</small>
+</button>
+
+</div>
+
+<button id="startBtn" class="primary">
+▶ Začať tréning
+</button>
+
+<button id="mistakesBtn" class="mistakes">
+🎯 Precvičiť moje chyby
+<span id="mistakeCount"></span>
+</button>
+
+<button
+id="allExercisesHomeBtn"
+class="allExercises"
+style="width:100%;margin-top:7px">
+🏠 Všetky cvičenia
+</button>
+
+</section>
+
+<section id="game" class="card hidden">
+
+<div class="top">
+
+<div class="navButtons">
+
+<button id="backBtn" class="secondary">
+← Späť
+</button>
+
+<button id="allExercisesBtn" class="allExercises">
+🏠 Všetky cvičenia
+</button>
+
+</div>
+
+<div id="levelBadge" class="badge"></div>
+
+</div>
+
+<div class="progress">
+<div id="bar" class="bar"></div>
+</div>
+
+<div class="stats">
+<span id="counter"></span>
+<span>🏆 <span id="points">0</span></span>
+</div>
+
+<div id="instruction" class="instruction"></div>
+<div id="question" class="question"></div>
+<div id="answers" class="answers"></div>
+<div id="feedback"></div>
+
+<button id="nextButton" class="primary hidden">
+Ďalej ➜
+</button>
+
+</section>
+
+<section id="finish" class="card center hidden">
+
+<div style="font-size:50px">🏆</div>
+
+<h1>Tréning hotový!</h1>
+
+<div id="finalScore" class="score"></div>
+
+<p id="finalMessage"></p>
+
+<button id="againBtn" class="primary">
+🔄 Nový náhodný mix
+</button>
+
+<br><br>
+
+<button id="homeBtn" class="secondary">
+⭐ Vybrať level
+</button>
+
+<button id="allExercisesFinishBtn" class="allExercises">
+🏠 Všetky cvičenia
+</button>
+
+</section>
+
+<div class="footer">
+DámTo! • Krátke a dlhé samohlásky
+</div>
+
+</div>
+
+<script>
+
+/* =========================================
+   VŠETKY CVIČENIA
+========================================= */
+
+const ALL_EXERCISES_URL =
+"https://sites.google.com/view/vyssilevel/d%C3%A1mto-online-cvi%C4%8Denia";
+
+function goToAllExercises(){
+  window.top.location.href = ALL_EXERCISES_URL;
+}
+
+
+/* =========================================
+   LEVEL 1
+========================================= */
+
+const level1=[
+
+{id:"l1-1",i:"Je táto samohláska krátka alebo dlhá?",q:"A",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-2",i:"Je táto samohláska krátka alebo dlhá?",q:"Ä",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-3",i:"Je táto samohláska krátka alebo dlhá?",q:"E",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-4",i:"Je táto samohláska krátka alebo dlhá?",q:"I",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-5",i:"Je táto samohláska krátka alebo dlhá?",q:"O",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-6",i:"Je táto samohláska krátka alebo dlhá?",q:"U",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-7",i:"Je táto samohláska krátka alebo dlhá?",q:"Y",c:"krátka",o:["krátka","dlhá"]},
+
+{id:"l1-8",i:"Je táto samohláska krátka alebo dlhá?",q:"Á",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-9",i:"Je táto samohláska krátka alebo dlhá?",q:"É",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-10",i:"Je táto samohláska krátka alebo dlhá?",q:"Í",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-11",i:"Je táto samohláska krátka alebo dlhá?",q:"Ó",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-12",i:"Je táto samohláska krátka alebo dlhá?",q:"Ú",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-13",i:"Je táto samohláska krátka alebo dlhá?",q:"Ý",c:"dlhá",o:["krátka","dlhá"]},
+
+{id:"l1-14",i:"Patrí a medzi krátke alebo dlhé samohlásky?",q:"a",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-15",i:"Patrí e medzi krátke alebo dlhé samohlásky?",q:"e",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-16",i:"Patrí i medzi krátke alebo dlhé samohlásky?",q:"i",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-17",i:"Patrí o medzi krátke alebo dlhé samohlásky?",q:"o",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-18",i:"Patrí u medzi krátke alebo dlhé samohlásky?",q:"u",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-19",i:"Patrí y medzi krátke alebo dlhé samohlásky?",q:"y",c:"krátka",o:["krátka","dlhá"]},
+
+{id:"l1-20",i:"Patrí á medzi krátke alebo dlhé samohlásky?",q:"á",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-21",i:"Patrí é medzi krátke alebo dlhé samohlásky?",q:"é",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-22",i:"Patrí í medzi krátke alebo dlhé samohlásky?",q:"í",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-23",i:"Patrí ó medzi krátke alebo dlhé samohlásky?",q:"ó",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-24",i:"Patrí ú medzi krátke alebo dlhé samohlásky?",q:"ú",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-25",i:"Patrí ý medzi krátke alebo dlhé samohlásky?",q:"ý",c:"dlhá",o:["krátka","dlhá"]},
+
+{id:"l1-26",i:"Je táto samohláska krátka alebo dlhá?",q:"Ä",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-27",i:"Je táto samohláska krátka alebo dlhá?",q:"Ú",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-28",i:"Je táto samohláska krátka alebo dlhá?",q:"Á",c:"dlhá",o:["krátka","dlhá"]},
+{id:"l1-29",i:"Je táto samohláska krátka alebo dlhá?",q:"Y",c:"krátka",o:["krátka","dlhá"]},
+{id:"l1-30",i:"Je táto samohláska krátka alebo dlhá?",q:"Í",c:"dlhá",o:["krátka","dlhá"]}
+
+];
+
+
+/* =========================================
+   LEVEL 2
+========================================= */
+
+const level2=[
+
+{id:"l2-1",i:"Ktorá samohláska je dlhá?",q:"",c:"Á",o:["A","Á","E"]},
+{id:"l2-2",i:"Ktorá samohláska je dlhá?",q:"",c:"É",o:["E","É","I"]},
+{id:"l2-3",i:"Ktorá samohláska je dlhá?",q:"",c:"Í",o:["I","Í","O"]},
+{id:"l2-4",i:"Ktorá samohláska je dlhá?",q:"",c:"Ó",o:["O","Ó","U"]},
+{id:"l2-5",i:"Ktorá samohláska je dlhá?",q:"",c:"Ú",o:["U","Ú","A"]},
+{id:"l2-6",i:"Ktorá samohláska je dlhá?",q:"",c:"Ý",o:["Y","Ý","E"]},
+
+{id:"l2-7",i:"Ktorá samohláska je krátka?",q:"",c:"A",o:["Á","A","Í"]},
+{id:"l2-8",i:"Ktorá samohláska je krátka?",q:"",c:"E",o:["É","E","Ú"]},
+{id:"l2-9",i:"Ktorá samohláska je krátka?",q:"",c:"I",o:["Í","I","Á"]},
+{id:"l2-10",i:"Ktorá samohláska je krátka?",q:"",c:"O",o:["Ó","O","Ý"]},
+{id:"l2-11",i:"Ktorá samohláska je krátka?",q:"",c:"U",o:["Ú","U","É"]},
+{id:"l2-12",i:"Ktorá samohláska je krátka?",q:"",c:"Y",o:["Ý","Y","Á"]},
+{id:"l2-13",i:"Ktorá samohláska je krátka?",q:"",c:"Ä",o:["Á","Ä","É"]},
+
+{id:"l2-14",i:"Ktorá dvojica patrí k sebe?",q:"",c:"a – á",o:["a – á","a – é","a – ú"]},
+{id:"l2-15",i:"Ktorá dvojica patrí k sebe?",q:"",c:"e – é",o:["e – é","e – í","e – ú"]},
+{id:"l2-16",i:"Ktorá dvojica patrí k sebe?",q:"",c:"i – í",o:["i – í","i – ó","i – á"]},
+{id:"l2-17",i:"Ktorá dvojica patrí k sebe?",q:"",c:"o – ó",o:["o – ó","o – í","o – ú"]},
+{id:"l2-18",i:"Ktorá dvojica patrí k sebe?",q:"",c:"u – ú",o:["u – ú","u – é","u – á"]},
+{id:"l2-19",i:"Ktorá dvojica patrí k sebe?",q:"",c:"y – ý",o:["y – ý","y – í","y – ú"]},
+
+{id:"l2-20",i:"Ktorá možnosť obsahuje iba krátke samohlásky?",q:"",c:"a, e, i",o:["a, e, i","á, é, í","a, é, i"]},
+{id:"l2-21",i:"Ktorá možnosť obsahuje iba krátke samohlásky?",q:"",c:"o, u, y",o:["o, u, y","ó, ú, ý","o, ú, y"]},
+{id:"l2-22",i:"Ktorá možnosť obsahuje iba krátke samohlásky?",q:"",c:"a, ä, e",o:["a, ä, e","á, é, í","ä, é, á"]},
+
+{id:"l2-23",i:"Ktorá možnosť obsahuje iba dlhé samohlásky?",q:"",c:"á, é, í",o:["á, é, í","a, e, i","á, e, í"]},
+{id:"l2-24",i:"Ktorá možnosť obsahuje iba dlhé samohlásky?",q:"",c:"ó, ú, ý",o:["ó, ú, ý","o, u, y","ó, u, ý"]},
+
+{id:"l2-25",i:"Ktorá samohláska je dlhá?",q:"",c:"Ú",o:["U","Y","Ú"]},
+{id:"l2-26",i:"Ktorá samohláska je krátka?",q:"",c:"Ä",o:["Í","Ä","Á"]},
+{id:"l2-27",i:"Ktorá samohláska je dlhá?",q:"",c:"Ý",o:["Y","E","Ý"]},
+{id:"l2-28",i:"Ktorá samohláska je krátka?",q:"",c:"O",o:["Ó","Ú","O"]},
+{id:"l2-29",i:"Ktorá samohláska je dlhá?",q:"",c:"É",o:["E","I","É"]},
+{id:"l2-30",i:"Ktorá samohláska je krátka?",q:"",c:"U",o:["Ú","Á","U"]}
+
+];
+
+
+/* =========================================
+   LEVEL 3
+========================================= */
+
+const level3=[
+
+{id:"l3-1",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"múka",o:["múka","mama","pero"]},
+{id:"l3-2",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"lúka",o:["lúka","lopta","lavica"]},
+{id:"l3-3",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"ráno",o:["ráno","pero","dom"]},
+{id:"l3-4",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"krása",o:["krása","mama","okno"]},
+{id:"l3-5",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"nízky",o:["nízky","malina","pero"]},
+{id:"l3-6",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"sýty",o:["sýty","syn","dom"]},
+{id:"l3-7",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"páv",o:["páv","pes","rak"]},
+{id:"l3-8",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"kľúč",o:["kľúč","dom","vlak"]},
+{id:"l3-9",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"móda",o:["móda","mama","pero"]},
+{id:"l3-10",i:"Ktoré slovo obsahuje dlhú samohlásku?",q:"",c:"tón",o:["tón","les","dom"]},
+
+{id:"l3-11",i:"Ktoré slovo obsahuje iba krátke samohlásky?",q:"",c:"mama",o:["mama","múka","ráno"]},
+{id:"l3-12",i:"Ktoré slovo obsahuje iba krátke samohlásky?",q:"",c:"pero",o:["pero","krása","lúka"]},
+{id:"l3-13",i:"Ktoré slovo obsahuje iba krátke samohlásky?",q:"",c:"lavica",o:["lavica","nízky","múka"]},
+{id:"l3-14",i:"Ktoré slovo obsahuje iba krátke samohlásky?",q:"",c:"malina",o:["malina","ráno","sýty"]},
+{id:"l3-15",i:"Ktoré slovo obsahuje iba krátke samohlásky?",q:"",c:"koleno",o:["koleno","móda","páv"]},
+
+{id:"l3-16",i:"Ktorá samohláska je v slove MÚKA dlhá?",q:"MÚKA",c:"Ú",o:["U","Ú","A"]},
+{id:"l3-17",i:"Ktorá samohláska je v slove RÁNO dlhá?",q:"RÁNO",c:"Á",o:["A","Á","O"]},
+{id:"l3-18",i:"Ktorá samohláska je v slove NÍZKY dlhá?",q:"NÍZKY",c:"Í",o:["I","Í","Y"]},
+{id:"l3-19",i:"Ktorá samohláska je v slove MÓDA dlhá?",q:"MÓDA",c:"Ó",o:["O","Ó","A"]},
+{id:"l3-20",i:"Ktorá samohláska je v slove SÝTY dlhá?",q:"SÝTY",c:"Ý",o:["Y","Ý","A"]},
+
+{id:"l3-21",i:"Ktorá samohláska je v slove MAMA krátka?",q:"MAMA",c:"A",o:["A","Á","Ú"]},
+{id:"l3-22",i:"Ktorá samohláska je v slove PERO krátka?",q:"PERO",c:"E",o:["E","É","Í"]},
+{id:"l3-23",i:"Ktorá samohláska je v slove DOM krátka?",q:"DOM",c:"O",o:["O","Ó","Ú"]},
+{id:"l3-24",i:"Ktorá samohláska je v slove DUB krátka?",q:"DUB",c:"U",o:["U","Ú","Á"]},
+{id:"l3-25",i:"Ktorá samohláska je v slove SYN krátka?",q:"SYN",c:"Y",o:["Y","Ý","Í"]},
+
+{id:"l3-26",i:"Ktoré slovo má dlhú samohlásku Á?",q:"",c:"mráz",o:["mráz","dom","pes"]},
+{id:"l3-27",i:"Ktoré slovo má dlhú samohlásku Í?",q:"",c:"líška",o:["líška","mačka","pes"]},
+{id:"l3-28",i:"Ktoré slovo má dlhú samohlásku Ú?",q:"",c:"kúpeľ",o:["kúpeľ","okno","pero"]},
+{id:"l3-29",i:"Ktoré slovo má dlhú samohlásku Ó?",q:"",c:"kód",o:["kód","dom","vlak"]},
+{id:"l3-30",i:"Ktoré slovo má dlhú samohlásku Ý?",q:"",c:"býk",o:["býk","pes","rak"]}
+
+];
+
+
+/* =========================================
+   PREMENNÉ
+========================================= */
+
+let selectedLevel=1;
+let questions=[];
+let current=0;
+let score=0;
+let locked=false;
+let selectedAnswerIndex=0;
+
+const $=id=>document.getElementById(id);
+
+
+/* =========================================
+   MIEŠANIE
+========================================= */
+
+function shuffle(array){
+
+  const a=[...array];
+
+  for(let i=a.length-1;i>0;i--){
+
+    const j=
+      Math.floor(
+        Math.random()*(i+1)
+      );
+
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+
+  return a;
+}
+
+
+function source(){
+
+  if(selectedLevel===1){
+    return level1;
+  }
+
+  if(selectedLevel===2){
+    return level2;
+  }
+
+  return level3;
+}
+
+
+/* =========================================
+   OBRAZOVKY
+========================================= */
+
+function show(id){
+
+  ["home","game","finish"]
+  .forEach(name=>{
+    $(name).classList.add("hidden");
+  });
+
+  $(id).classList.remove("hidden");
+
+  window.scrollTo(0,0);
+}
+
+
+/* =========================================
+   MOJE CHYBY
+========================================= */
+
+function getMistakes(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "damtoKratkeDlheSamohlaskyV1"
+      ) || "{}"
+    );
+
+  }
+  catch(error){
+
+    return {};
+  }
+}
+
+
+function setMistakes(data){
+
+  localStorage.setItem(
+    "damtoKratkeDlheSamohlaskyV1",
+    JSON.stringify(data)
+  );
+
+  updateMistakeCount();
+}
+
+
+function updateMistakeCount(){
+
+  const count=
+    Object.keys(
+      getMistakes()
+    ).length;
+
+  $("mistakeCount").textContent=
+    " ("+count+")";
+}
+
+
+/* =========================================
+   LEVEL
+========================================= */
+
+document
+.querySelectorAll(".level")
+.forEach(button=>{
+
+  button.addEventListener(
+    "click",
+    ()=>{
+
+      selectedLevel=
+        Number(
+          button.dataset.level
+        );
+
+      document
+      .querySelectorAll(".level")
+      .forEach(item=>{
+        item.classList.remove("active");
+      });
+
+      button
+      .classList
+      .add("active");
+
+    }
+  );
+
+});
+
+
+/* =========================================
+   TLAČIDLÁ
+========================================= */
+
+$("startBtn").onclick=
+startTraining;
+
+$("mistakesBtn").onclick=
+startMistakeTraining;
+
+$("backBtn").onclick=
+()=>show("home");
+
+$("allExercisesBtn").onclick=
+goToAllExercises;
+
+$("allExercisesHomeBtn").onclick=
+goToAllExercises;
+
+$("allExercisesFinishBtn").onclick=
+goToAllExercises;
+
+$("homeBtn").onclick=
+()=>show("home");
+
+$("againBtn").onclick=
+startTraining;
+
+$("nextButton").onclick=
+nextQuestion;
+
+
+/* =========================================
+   TRÉNING
+========================================= */
+
+function startTraining(){
+
+  const mistakes=
+    getMistakes();
+
+  const list=
+    source();
+
+  questions=[
+
+    ...shuffle(
+      list.filter(
+        x=>mistakes[x.id]
+      )
+    ),
+
+    ...shuffle(
+      list.filter(
+        x=>!mistakes[x.id]
+      )
+    )
+
+  ].slice(0,10);
+
+  current=0;
+  score=0;
+
+  show("game");
+
+  render();
+}
+
+
+/* =========================================
+   PRECVIČOVANIE CHÝB
+========================================= */
+
+function startMistakeTraining(){
+
+  const mistakes=
+    getMistakes();
+
+  const all=[
+    ...level1,
+    ...level2,
+    ...level3
+  ]
+  .filter(
+    x=>mistakes[x.id]
+  );
+
+  if(!all.length){
+
+    alert(
+      "🎉 Nemáš žiadne chyby na precvičenie."
+    );
+
+    return;
+  }
+
+  questions=
+    shuffle(all)
+    .slice(0,10);
+
+  current=0;
+  score=0;
+
+  show("game");
+
+  render();
+}
+
+
+/* =========================================
+   ZOBRAZENIE OTÁZKY
+========================================= */
+
+function render(){
+
+  locked=false;
+
+  if(current>=questions.length){
+
+    finish();
+
+    return;
+  }
+
+  const x=
+    questions[current];
+
+  $("counter").textContent=
+    (current+1)+
+    " / "+
+    questions.length;
+
+  $("points").textContent=
+    score;
+
+  $("bar").style.width=
+    (
+      current /
+      questions.length *
+      100
+    )+"%";
+
+  $("levelBadge").textContent=
+
+    selectedLevel===1
+    ? "⭐ Skúšam"
+
+    : selectedLevel===2
+    ? "⭐⭐ Už mi to ide"
+
+    : "⭐⭐⭐ DámTo!";
+
+  $("instruction").textContent=
+    x.i;
+
+  $("question").textContent=
+    x.q || "";
+
+  $("feedback").innerHTML="";
+
+  $("feedback").className="";
+
+  $("nextButton")
+  .classList
+  .add("hidden");
+
+  const box=
+    $("answers");
+
+  box.innerHTML="";
+
+  selectedAnswerIndex=0;
+
+  const options=
+    shuffle(
+      x.o
+    );
+
+  options.forEach(
+    (option,index)=>{
+
+      const button=
+        document
+        .createElement("button");
+
+      button.className=
+        "answer";
+
+      button.textContent=
+        option;
+
+      button.dataset.correct=
+        String(
+          option===x.c
+        );
+
+      button.addEventListener(
+        "click",
+        ()=>{
+
+          selectedAnswerIndex=
+            index;
+
+          updateKeyboardSelection();
+
+          checkAnswer(
+            option===x.c
+          );
+        }
+      );
+
+      box.appendChild(
+        button
+      );
+    }
+  );
+
+  updateKeyboardSelection();
+}
+
+
+/* =========================================
+   ZVÝRAZNENIE VÝBERU
+========================================= */
+
+function updateKeyboardSelection(){
+
+  const buttons=[
+    ...document
+    .querySelectorAll(".answer")
+  ];
+
+  buttons.forEach(
+    (button,index)=>{
+
+      button.classList.toggle(
+        "keyboardSelected",
+        index===selectedAnswerIndex
+      );
+
+    }
+  );
+}
+
+
+/* =========================================
+   KONTROLA ODPOVEDE
+========================================= */
+
+function checkAnswer(ok){
+
+  if(locked){
+    return;
+  }
+
+  locked=true;
+
+  const x=
+    questions[current];
+
+  const mistakes=
+    getMistakes();
+
+  const feedback=
+    $("feedback");
+
+  if(ok){
+
+    score++;
+
+    delete mistakes[x.id];
+
+    feedback.className=
+      "feedback good";
+
+    feedback.innerHTML=
+      "🎉 <b>Výborne!</b> Správna odpoveď.";
+
+  }
+  else{
+
+    mistakes[x.id]=true;
+
+    feedback.className=
+      "feedback bad";
+
+    feedback.innerHTML=
+      "❌ <b>Nesprávne.</b> Správna odpoveď je <b>"+
+      x.c+
+      "</b>.";
+  }
+
+  setMistakes(
+    mistakes
+  );
+
+  $("points").textContent=
+    score;
+
+  document
+  .querySelectorAll(".answer")
+  .forEach(button=>{
+    button.disabled=true;
+  });
+
+  $("nextButton")
+  .classList
+  .remove("hidden");
+}
+
+
+/* =========================================
+   ĎALEJ
+========================================= */
+
+function nextQuestion(){
+
+  current++;
+
+  render();
+
+  window.scrollTo(0,0);
+}
+
+
+/* =========================================
+   ŠÍPKY + ENTER
+========================================= */
+
+document
+.addEventListener(
+  "keydown",
+  event=>{
+
+    if(
+      $("game")
+      .classList
+      .contains("hidden")
+    ){
+      return;
+    }
+
+    const buttons=[
+      ...document
+      .querySelectorAll(".answer")
+    ];
+
+    if(
+      !locked &&
+      buttons.length
+    ){
+
+      if(
+        event.key==="ArrowDown" ||
+        event.key==="ArrowRight"
+      ){
+
+        event.preventDefault();
+
+        selectedAnswerIndex=
+          (
+            selectedAnswerIndex+1
+          )%
+          buttons.length;
+
+        updateKeyboardSelection();
+
+        return;
+      }
+
+      if(
+        event.key==="ArrowUp" ||
+        event.key==="ArrowLeft"
+      ){
+
+        event.preventDefault();
+
+        selectedAnswerIndex=
+          (
+            selectedAnswerIndex-1+
+            buttons.length
+          )%
+          buttons.length;
+
+        updateKeyboardSelection();
+
+        return;
+      }
+
+      if(
+        event.key==="Enter"
+      ){
+
+        event.preventDefault();
+
+        const chosen=
+          buttons[
+            selectedAnswerIndex
+          ];
+
+        if(chosen){
+
+          checkAnswer(
+            chosen.dataset.correct==="true"
+          );
+        }
+
+        return;
+      }
+    }
+
+    if(
+      locked &&
+      event.key==="Enter" &&
+      !$("nextButton")
+      .classList
+      .contains("hidden")
+    ){
+
+      event.preventDefault();
+
+      nextQuestion();
+    }
+
+  }
+);
+
+
+/* =========================================
+   KONIEC
+========================================= */
+
+function finish(){
+
+  $("finalScore").textContent=
+    score+
+    " / "+
+    questions.length;
+
+  const percent=
+    questions.length
+    ? score/questions.length
+    : 0;
+
+  $("finalMessage").textContent=
+
+    percent===1
+    ? "Perfektné! Bez chyby. 🌟"
+
+    : percent>=0.8
+    ? "Výborne! 🚀"
+
+    : percent>=0.6
+    ? "Pekná práca. 💪"
+
+    : "Skús ešte jeden tréning. 🌱";
+
+  updateMistakeCount();
+
+  show("finish");
+}
+
+
+/* =========================================
+   ŠTART
+========================================= */
+
+updateMistakeCount();
+
+</script>
+
+</body>
+</html>
